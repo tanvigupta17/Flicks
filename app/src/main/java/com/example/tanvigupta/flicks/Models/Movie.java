@@ -16,6 +16,7 @@ public class Movie {
     String posterPath; // vertical, not complete URL
     String backdropPath; // horizontal, not complete URL
     Double voteAverage;
+    String releaseDate;
 
     // default constructor for parceler
     public Movie() {
@@ -28,6 +29,7 @@ public class Movie {
         posterPath = object.getString("poster_path");
         backdropPath = object.getString("backdrop_path");
         voteAverage = object.getDouble("vote_average");
+        releaseDate = object.getString("release_date");
     }
 
     // access methods
@@ -49,5 +51,9 @@ public class Movie {
 
     public Double getVoteAverage() {
         return voteAverage;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 }
