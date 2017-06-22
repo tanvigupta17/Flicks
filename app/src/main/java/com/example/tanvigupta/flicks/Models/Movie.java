@@ -2,17 +2,24 @@ package com.example.tanvigupta.flicks.Models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by tanvigupta on 6/21/17.
  */
 
+@Parcel // indicates class is Parcelable
 public class Movie {
-    // values from API
-    private String title;
-    private String overview;
-    private String posterPath; // vertical, not complete URL
-    private String backdropPath; // horizontal, not complete URL
+    // values from API, must be public for parceler
+    String title;
+    String overview;
+    String posterPath; // vertical, not complete URL
+    String backdropPath; // horizontal, not complete URL
+    Double voteAverage;
+
+    // default constructor for parceler
+    public Movie() {
+    }
 
     // initialize from JSON data
     public Movie(JSONObject object) throws JSONException {
@@ -20,6 +27,7 @@ public class Movie {
         overview = object.getString("overview");
         posterPath = object.getString("poster_path");
         backdropPath = object.getString("backdrop_path");
+        voteAverage = object.getDouble("vote_average");
     }
 
     // access methods
@@ -37,5 +45,9 @@ public class Movie {
 
     public String getBackdropPath() {
         return backdropPath;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
     }
 }
