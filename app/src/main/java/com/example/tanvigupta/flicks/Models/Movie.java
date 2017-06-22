@@ -11,13 +11,15 @@ public class Movie {
     // values from API
     private String title;
     private String overview;
-    private String posterPath; // not complete URL
+    private String posterPath; // vertical, not complete URL
+    private String backdropPath; // horizontal, not complete URL
 
     // initialize from JSON data
     public Movie(JSONObject object) throws JSONException {
         title = object.getString("title");
         overview = object.getString("overview");
         posterPath = object.getString("poster_path");
+        backdropPath = object.getString("backdrop_path");
     }
 
     // access methods
@@ -31,5 +33,9 @@ public class Movie {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
     }
 }
