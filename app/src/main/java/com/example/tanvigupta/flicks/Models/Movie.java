@@ -17,6 +17,8 @@ public class Movie {
     String backdropPath; // horizontal, not complete URL
     Double voteAverage;
     String releaseDate;
+    Integer id;
+    String backdropUrl;
 
     // default constructor for parceler
     public Movie() {
@@ -30,6 +32,7 @@ public class Movie {
         backdropPath = object.getString("backdrop_path");
         voteAverage = object.getDouble("vote_average");
         releaseDate = object.getString("release_date");
+        id = object.getInt("id");
     }
 
     // access methods
@@ -55,5 +58,17 @@ public class Movie {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getBackdropUrl() {
+        return backdropUrl;
+    }
+
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
     }
 }
