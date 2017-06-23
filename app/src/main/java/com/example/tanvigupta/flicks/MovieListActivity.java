@@ -48,6 +48,9 @@ public class MovieListActivity extends AppCompatActivity {
         // initialize client
         client = new AsyncHttpClient();
 
+        // customize AppBar
+        getSupportActionBar().setTitle("Currently playing");
+
         // initialize list of movies
         movies = new ArrayList<>();
 

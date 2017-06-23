@@ -34,6 +34,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     // config needed for movie urls
     Config config;
 
+    boolean isPortait;
+
     // initialize with list
     public MovieAdapter(ArrayList<Movie> movies) {
         this.movies = movies;
@@ -72,7 +74,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         holder.tvOverview.setText(movie.getOverview());
 
         // determine current device orientation
-        boolean isPortait = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        isPortait = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
 
         // build URL for movie image
         String imageUrl = null;

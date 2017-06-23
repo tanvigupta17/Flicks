@@ -31,9 +31,9 @@
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/ivBackdropImage"
-        android:text="TextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="TextView" />
 </RelativeLayout>

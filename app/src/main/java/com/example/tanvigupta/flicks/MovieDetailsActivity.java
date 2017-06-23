@@ -56,6 +56,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // initialize client
         client = new AsyncHttpClient();
 
+        // customize AppBar
+        getSupportActionBar().setTitle("Details");
+
         // resolve the view objects
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvOverview = (TextView) findViewById(R.id.tvOverview);
