@@ -12,16 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.tanvigupta.flicks.Models.Movie;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
 
-import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -33,16 +26,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvRelease;
     ImageView ivBackdrop;
 
-    // base URL for the API
-    public final static String API_BASE_URL = "https://api.themoviedb.org/3";
-    // parameter name for the API key
-    public final static String API_KEY_PARAM = "api_key";
-    // tag for logging from this activity
-    public final static String TAG = "MovieDetailsActivity";
-
-    AsyncHttpClient client;  // client to use API
-    String youtubeId;
-
     Context context;
 
     @Override
@@ -52,9 +35,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // set context
         context = this;
-
-        // initialize client
-        client = new AsyncHttpClient();
 
         // customize AppBar
         getSupportActionBar().setTitle("Details");
@@ -91,48 +71,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ivBackdrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getVideos();
-
-                if (youtubeId != null) {
-                    Intent in = new Intent(context, MovieTrailerActivity.class);
-                    in.putExtra("id", youtubeId);
-                    context.startActivity(in);
-                }
-            }
-        });
-    }
-
-    // get the list of videos associated with given movie ID using the API
-    private void getVideos() {
-        // create the URL to access
-        String url = API_BASE_URL + "/movie/" + movie.getId() + "/videos";
-
-        Log.i(TAG, String.format("URL created is: %s", url));
-
-        // set the request parameters
-        RequestParams params = new RequestParams();
-        params.put(API_KEY_PARAM, getString(R.string.api_key));
-
-        // execute GET request, expect JSON object response
-        client.get(url, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // use results to get video id for trailer
-                try {
-                    JSONArray results = response.getJSONArray("results");
-
-                    // access first video in results array
-                    youtubeId = results.getJSONObject(0).getString("key");
-
-                    Log.i(TAG, String.format("Loaded video ID: %s", youtubeId));
-                } catch (JSONException e) {
-                    Log.e(TAG, "Failed to parse videos", e);
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e(TAG, "Failed to get data from videos endpoint", throwable);
+                Intent in = new Intent(context, MovieTrailerActivity.class);
+                in.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                context.startActivity(in);
             }
         });
     }

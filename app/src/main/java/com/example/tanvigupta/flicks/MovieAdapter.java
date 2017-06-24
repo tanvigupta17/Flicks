@@ -65,7 +65,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     // binds an inflated view to a new item
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         // get the movie data at the specified position
         Movie movie = movies.get(position);
 
@@ -90,7 +90,47 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
         movie.setBackdropUrl(config.getImageUrl(config.getBackdropSize(), movie.getBackdropPath()));
 
-        // get correct placerholder and image view for current orientation
+        if(holder.ivBackdropImage != null) {
+            holder.ivBackdropImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.getAdapterPosition() != RecyclerView.NO_POSITION && !isPortait) {
+                        Movie movie = movies.get(holder.getAdapterPosition());
+                        Intent in = new Intent(context, MovieTrailerActivity.class);
+                        in.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                        context.startActivity(in);
+                    }
+                }
+            });
+        }
+
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    Movie movie = movies.get(holder.getAdapterPosition());
+                    Intent in = new Intent(context, MovieDetailsActivity.class);
+                    in.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                    context.startActivity(in);
+                }
+            }
+        });
+
+        holder.tvOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    Movie movie = movies.get(holder.getAdapterPosition());
+                    Intent in = new Intent(context, MovieDetailsActivity.class);
+                    in.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                    context.startActivity(in);
+                }
+            }
+        });
+
+        // get correct placeholder and image view for current orientation
         int placeholderId = isPortait ? R.drawable.flicks_movie_placeholder : R.drawable.flicks_backdrop_placeholder;
         ImageView imageView = isPortait ? holder.ivPosterImage : holder.ivBackdropImage;
 
@@ -135,7 +175,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         public void onClick(View v) {
             int position = getAdapterPosition();
 
-            if (position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION && isPortait) {
                 Movie movie = movies.get(position);
                 Intent in = new Intent(context, MovieDetailsActivity.class);
                 in.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));

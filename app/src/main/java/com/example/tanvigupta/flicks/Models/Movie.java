@@ -19,6 +19,7 @@ public class Movie {
     String releaseDate;
     Integer id;
     String backdropUrl;
+    String movieId;
 
     // default constructor for parceler
     public Movie() {
@@ -70,5 +71,13 @@ public class Movie {
 
     public void setBackdropUrl(String backdropUrl) {
         this.backdropUrl = backdropUrl;
+    }
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 }
